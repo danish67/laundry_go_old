@@ -18,7 +18,9 @@ class _NearbyLaundryState extends State<NearbyLaundry> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pushNamed(context, 'homepage');
+          },
           icon: Icon(
             Icons.arrow_back_sharp,
             color: Colors.black,

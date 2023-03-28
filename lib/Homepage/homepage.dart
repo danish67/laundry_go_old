@@ -238,7 +238,7 @@ class _HomepageState extends State<Homepage> {
                         ),
                         TextButton(
                             onPressed: () {
-                              Navigator.pushNamed(context, 'nearbylaundries');
+                              Navigator.pushNamed(context, 'bestrated');
                             },
                             child: CustomText(
                                 text: "View all", textcolor: Color(0xff9747FF)))
@@ -344,7 +344,7 @@ class _HomepageState extends State<Homepage> {
                   ),
                   TextButton(
                       onPressed: () {
-                        Navigator.pushNamed(context, 'nearbylaundries');
+                        Navigator.pushNamed(context, 'bestrated');
                       },
                       child: CustomText(
                           text: "View all", textcolor: Color(0xff9747FF)))
@@ -415,6 +415,16 @@ class _HomepageState extends State<Homepage> {
                       ),
                     );
                   }),
+            ),
+            SizedBox(height: Mheight * 0.0515),
+            Padding(
+              padding: EdgeInsets.only(bottom: Mheight * 0.1269),
+              child: Container(
+                  child: Center(
+                      child: SizedBox(
+                          height: Mheight * 0.1150,
+                          width: Mwidth * 0.8194,
+                          child: Image.asset('assets/images/footer.png')))),
             ),
           ],
         ),
