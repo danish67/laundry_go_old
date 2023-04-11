@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'otp.dart';
@@ -5,16 +6,19 @@ import 'otp.dart';
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
 
+  static String verify = "";
+
   @override
   State<Login> createState() => _LoginState();
 }
 
 class _LoginState extends State<Login> {
-  TextEditingController countryController = TextEditingController();
+  TextEditingController countrycode = TextEditingController();
+  var phone = "";
 
   @override
   void initState() {
-    countryController.text = "+91";
+    countrycode.text = "+91";
     super.initState();
   }
 
@@ -76,7 +80,7 @@ class _LoginState extends State<Login> {
                   SizedBox(
                     width: 40,
                     child: TextField(
-                      controller: countryController,
+                      controller: countrycode,
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(
                         border: InputBorder.none,
@@ -93,6 +97,9 @@ class _LoginState extends State<Login> {
                   Expanded(
                       child: TextField(
                     keyboardType: TextInputType.phone,
+                    onChanged: (value) {
+                      phone = value;
+                    },
                     decoration: InputDecoration(
                       border: InputBorder.none,
                       hintText: "Phone",
@@ -116,10 +123,20 @@ class _LoginState extends State<Login> {
                       textStyle: const TextStyle(
                           fontSize: 20, color: Color(0xff9747ff)),
                     ),
-                    onPressed: () {
-                      Navigator.pushNamed(context, 'otp');
+                    onPressed: () async {
+                      await FirebaseAuth.instance.verifyPhoneNumber(
+                        phoneNumber: '${countrycode.text + phone}',
+                        verificationCompleted:
+                            (PhoneAuthCredential credential) {},
+                        verificationFailed: (FirebaseAuthException e) {},
+                        codeSent: (String verificationId, int? resendToken) {
+                          Login.verify = verificationId;
+                          Navigator.pushNamed(context, 'otp');
+                        },
+                        codeAutoRetrievalTimeout: (String verificationId) {},
+                      );
                     },
-                    child: const Text('Continue',
+                    child: const Text('Verify',
                         style: TextStyle(color: Colors.white))))
           ],
         ),

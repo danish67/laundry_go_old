@@ -1,4 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'login.dart';
 import 'package:flutter/services.dart';
 import 'register.dart';
 import 'package:pinput/pinput.dart';
@@ -11,6 +13,7 @@ class otp extends StatefulWidget {
 }
 
 class _otpState extends State<otp> {
+  final FirebaseAuth auth = FirebaseAuth.instance;
   @override
   Widget build(BuildContext context) {
     final defaultPinTheme = PinTheme(
@@ -36,6 +39,9 @@ class _otpState extends State<otp> {
         color: Color.fromRGBO(234, 239, 243, 1),
       ),
     );
+
+    var code = "";
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -84,7 +90,9 @@ class _otpState extends State<otp> {
               // submittedPinTheme: submittedPinTheme,
 
               showCursor: true,
-              onCompleted: (pin) => print(pin),
+              onCompleted: (value) {
+                code = value;
+              },
             ),
             SizedBox(
               height: 20,
@@ -98,8 +106,27 @@ class _otpState extends State<otp> {
                       primary: Color(0xff9747ff),
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10))),
-                  onPressed: () {
-                    Navigator.pushNamed(context, 'register');
+                  onPressed: () async {
+                    try {
+                      PhoneAuthCredential credential =
+                          PhoneAuthProvider.credential(
+                              verificationId: Login.verify, smsCode: code);
+
+                      await auth.signInWithCredential(credential);
+                      Navigator.pushNamedAndRemoveUntil(
+                          context, 'register', (route) => false);
+                    } catch (e) {
+                      AlertDialog(
+                        title: const Text('Incorrect OTP'),
+                        content: const Text('Please Enter correct Otp'),
+                        actions: <Widget>[
+                          TextButton(
+                            onPressed: () => Navigator.pop(context, 'OK'),
+                            child: const Text('OK'),
+                          ),
+                        ],
+                      );
+                    }
                   },
                   child: Text("Verify Phone Number")),
             ),

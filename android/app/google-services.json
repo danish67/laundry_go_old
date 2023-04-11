@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "26189582982",
+    "project_id": "laundrygo-8cc2d",
+    "storage_bucket": "laundrygo-8cc2d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:26189582982:android:a903b89db4e52e7f307707",
+        "android_client_info": {
+          "package_name": "com.laundrygo.laundry_go"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "26189582982-j6q3k6jl3nvpq6b9m0g8c1gmu24qn0pk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBeB3cnCHwt0J1AOoYVr_qUue6wGAwZmKo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "26189582982-j6q3k6jl3nvpq6b9m0g8c1gmu24qn0pk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
